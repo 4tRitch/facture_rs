@@ -15,3 +15,18 @@ impl PasswordInput {
     }
   }
 }
+
+
+pub struct RefreshInput {
+  pub app: App,
+  pub refresh_token: String,
+}
+
+impl RefreshInput {
+  pub fn new() -> Self{
+    RefreshInput{
+      app:App::new(),
+      refresh_token: String::new()
+    }
+  }
+}

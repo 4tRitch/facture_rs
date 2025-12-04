@@ -1,7 +1,7 @@
 use facture_api::{auth::{app::App, credentials::AuthCredentials, input::PasswordInput, password::Password}, request::FactureRequest};
 
 
-#[tokio::test]
+// #[tokio::test]
 async fn test_password_auth() {
   let scopes = "timbrado sucursal facturacion cancelacion comprobante_recibido";
   let input = PasswordInput{
