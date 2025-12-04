@@ -1,120 +1,22 @@
-use serde::{Deserialize, Serialize, de};
-use thiserror::Error;
+use crate::{auth::{error::AuthError, input::PasswordInput, response::AuthResponse}, cons, request::FactureRequest};
 
-use crate::cons;
-
-#[derive(Debug, Error)]
-pub enum AuthError {
-  #[error("network error: {0}")]
-  Network(#[from] reqwest::Error),
-
-  #[error("parse error: {0}")]
-  Parse(#[from] serde_json::Error),
-
-  #[error("api error {status}: {message}")]
-  Api {
-    status: u16,
-    message: String,
-  },
-}
-
-
-
-
-pub struct AuthClient{
-  secret: String,
-  id: String,
-  credentials: Credentials
-}
-
-impl AuthClient {
-  pub fn new() -> Self {
-    AuthClient {
-      secret:String::new(),
-      id:String::new(),
-      credentials: Credentials::new()
-    }
-  }
-
-  pub fn password(mut self, password: impl Into<String>) -> Self{
-    self.credentials.password = password.into();
-    self
-  }
-
-  pub fn user(mut self, user: impl Into<String>) -> Self{
-    self.credentials.user = user.into();
-    self
-  }
-
-  pub fn client_id(mut self, client_id: impl Into<String>) -> Self{
-    self.id = client_id.into();
-    self
-  }
-
-  pub fn secret(mut self, secret: impl Into<String>) -> Self{
-    self.secret = secret.into();
-    self
-  }
-
-
-  pub fn get_password(&mut self) -> String { self.credentials.password.clone() }
-  pub fn get_user(&mut self) -> String { self.credentials.user.clone() }
-  pub fn get_client_id(&mut self) -> String { self.id.clone() }
-  pub fn get_secret(&mut self) -> String { self.secret.clone() }
-
-}
-
-
-pub  struct Credentials{
-  user: String,
-  password: String
-}
-
-impl Credentials {
-  pub fn new() -> Self {
-    Credentials {
-      user: String::new(),
-      password: String::new()
-    }
-  }
-}
-
-
-#[derive(Serialize,Deserialize, Debug)]
-pub struct AuthResponse{
-  pub access_token: String,
-  pub refresh_token: String,
-  pub expires_in: usize
-}
-
-impl AuthResponse {
-  pub fn new() -> Self {
-    AuthResponse {
-      access_token: String::new(),
-      refresh_token: String::new(),
-      expires_in: 0
-    }
-  }
-}
-
-
-
-#[derive(Debug)]
 pub struct Password;
 
-impl Password {
-  pub fn new() -> Self { Password {} }
+impl FactureRequest for Password {
+  type Input = PasswordInput;
+  type Output = AuthResponse;
+  type TError = AuthError;
 
-  pub async fn password(&mut self, mut client: AuthClient, scopes: String) -> Result<AuthResponse, AuthError>{
+  async fn request(&self, mut input: PasswordInput) -> Result<AuthResponse, AuthError>{
     let req_client = reqwest::Client::new();
     let uri = format!("{}/authorize", cons::URI);
 
     let params = [
-      ("username", &client.get_user()),
-      ("password", &client.get_password()),
-      ("scope", &scopes),
-      ("client_id", &client.get_client_id()),
-      ("client_secret", &client.get_secret())
+      ("username", &input.credentials.get_user()),
+      ("password", &input.credentials.get_password()),
+      ("scope", &input.scopes),
+      ("client_id", &input.app.get_client_id()),
+      ("client_secret", &input.app.get_secret())
     ];
 
 
