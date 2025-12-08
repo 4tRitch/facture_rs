@@ -1,4 +1,7 @@
-use crate::{auth::{error::AuthError, input::PasswordInput, response::AuthResponse}, cons, request::FactureRequest};
+use crate::{
+  auth::utils::{error::AuthError, input::PasswordInput, response::AuthResponse},
+  core::{cons, request::FactureRequest}
+};
 
 pub struct Password;
 

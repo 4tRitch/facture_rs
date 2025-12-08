@@ -1,4 +1,7 @@
-use crate::{auth::{error::AuthError, input::RefreshInput, response::AuthResponse}, cons, request::FactureRequest};
+use crate::{
+  auth::utils::{error::AuthError, input::RefreshInput, response::AuthResponse},
+  core::{cons, request::FactureRequest}
+};
 
 pub struct RefreshToken;
 
