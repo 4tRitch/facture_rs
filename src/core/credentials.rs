@@ -1,11 +1,11 @@
-pub struct AuthCredentials{
+pub struct AppCredentials{
   user: String,
   password: String
 }
 
-impl AuthCredentials {
+impl AppCredentials {
   pub fn new() -> Self {
-    AuthCredentials {
+    AppCredentials {
       user: String::new(),
       password: String::new()
     }

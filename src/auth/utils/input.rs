@@ -1,18 +1,15 @@
-use crate::auth::utils::{app::App, credentials::AuthCredentials};
-
+use crate::core::app::App;
 
 // Password
 pub struct PasswordInput {
   pub app: App,
-  pub credentials: AuthCredentials,
   pub scopes: String,
 }
 
 impl PasswordInput {
   pub fn new() -> Self{
     PasswordInput{
-      app:App::new(),
-      credentials: AuthCredentials::new(),
+      app: App::new(),
       scopes: String::new()
     }
   }
