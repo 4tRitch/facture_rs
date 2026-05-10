@@ -1,3 +1,3 @@
-// pub mod refresh_token;
+pub mod refresh_token;
 pub mod password;
-// pub mod authorize;
+pub mod authorize;

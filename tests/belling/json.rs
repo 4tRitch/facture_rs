@@ -4,7 +4,7 @@ use base64::{Engine, engine::general_purpose};
 use facture_rs::{
   belling::{json::JsonBilling,
   utils::{core::comprobante::Comprobante, json::input::JsonInput}},
-  core::request::FactureRequest, sucursal::{get::Sucursal, utils::{filters::SucursalFilters, input::SucursalInput}}
+  core::request::FactureRequest/* , sucursal::{get::Sucursal, utils::{filters::SucursalFilters, input::SucursalInput}} */
 };
 
 
