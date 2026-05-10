@@ -1,4 +1,4 @@
-use crate::belling::utils::{core::comprobante::Comprobante, json::json_raw::JsonRaw};
+use crate::belling::utils::{core::{comprobante::Comprobante, error::BillingError}, json::{entity::EntityWrapper, json_raw::JsonRaw}};
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct JsonInput {
@@ -29,6 +29,16 @@ impl JsonInput {
     self
   }
 
+  pub fn set_emisor(mut self, id: impl Into<usize>) -> Self{
+    self.json.entity.data.emisor.id = id.into();
+    self
+  }
+
+  pub fn set_template(mut self, template: impl Into<String>) -> Self{
+    self.json.entity.data.template = Some(template.into());
+    self
+  }
+
   pub fn set_bearer(mut self, bearer: impl Into<String>) -> Self{
     self.bearer = bearer.into();
     self
@@ -38,10 +48,10 @@ impl JsonInput {
     self.bearer.clone()
   }
 
-  pub fn get_json(&self) -> String {
-    "".to_string()
+  pub fn get_json(&self) -> Result<String, BillingError> {
+    let entity = EntityWrapper{ entity: &self.json.entity };
+    serde_json::to_string_pretty(&entity).map_err(BillingError::from)
   }
 
 }
-
 
