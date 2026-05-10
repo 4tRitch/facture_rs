@@ -35,7 +35,7 @@ impl FactureRequest for Password {
     // Return ok when the status is successful
     if api_response.status().is_success(){
       let json = api_response.text().await?;
-      let response: AuthResponse = serde_json::from_str(json.as_str()).unwrap();
+      let response: AuthResponse = serde_json::from_str(&json).unwrap();
       return Ok(response);
     }
 

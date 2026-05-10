@@ -1,4 +1,4 @@
-use facture_api::{
+use facture_rs::{
   auth::{password::Password, utils::input::PasswordInput},
   core::{app::App, credentials::AppCredentials, request::FactureRequest}
 };

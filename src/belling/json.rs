@@ -1,6 +1,6 @@
 use reqwest::header::{HeaderMap, HeaderValue, ACCEPT, AUTHORIZATION, CONTENT_TYPE};
 
-use crate::{belling::utils::{core::{error::BillingError, response::BillingResponse}, json::input::JsonInput}, core::{cons::URI, request::FactureRequest}
+use crate::{belling::utils::{core::{enums::BillingType, error::BillingError, response::BillingResponse}, json::input::JsonInput}, core::{cons::URI, request::FactureRequest}
 };
 
 pub struct JsonBilling;
@@ -12,7 +12,7 @@ impl FactureRequest for JsonBilling{
 
   async fn request(&self, input: JsonInput) -> Result<BillingResponse, BillingError>{
     let req_client = reqwest::Client::new();
-    let endpoint = format!("{}/timbrado/json", URI);
+    let endpoint = if input.bill_type == BillingType::JSON  {format!("{}/timbrado/json", URI)} else {format!("{}/timbrado/", URI)} ;
 
     let bearer = format!("Bearer {}", input.get_bearer());
     let mut headers = HeaderMap::new();
@@ -24,8 +24,6 @@ impl FactureRequest for JsonBilling{
     headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
 
     let json = input.get_json()?;
-
-    println!("{}",json);
 
     let api_response = req_client
       .post(endpoint)

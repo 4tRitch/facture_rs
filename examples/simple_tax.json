@@ -1,0 +1,71 @@
+{
+  "Version": "4.0",
+  "Fecha": "2026-05-09T09:42:48",
+  "FormaPago": "03",
+  "SubTotal": 37986.22,
+  "Total": 44064.02,
+  "Moneda": "MXN",
+  "TipoDeComprobante": "I",
+  "MetodoPago": "PUE",
+  "LugarExpedicion": "29050",
+  "Exportacion": "01",
+  "InformacionGlobal": {
+    "Periodicidad": "04",
+    "Meses": "04",
+    "Año": "2026"
+  },
+  "Emisor": {
+    "Rfc": "EKU9003173C9",
+    "Nombre": "ESCUELA KEMPER URGATE",
+    "RegimenFiscal": "601"
+  },
+  "Receptor": {
+    "Rfc": "XAXX010101000",
+    "Nombre": "PUBLICO EN GENERAL",
+    "UsoCFDI": "S01",
+    "DomicilioFiscalReceptor": "29050",
+    "RegimenFiscalReceptor": "616"
+  },
+  "Conceptos": {
+    "Concepto": [
+      {
+        "ObjetoImp": "02",
+        "ClaveProdServ": "78101500",
+        "NoIdentificacion": "001",
+        "Cantidad": 1,
+        "ClaveUnidad": "E48",
+        "Unidad": "Unidad de servicio",
+        "Descripcion": "CFDI Global 2026-04",
+        "ValorUnitario": 37986.22,
+        "Importe": 37986.22,
+        "Impuestos": {
+          "Traslados": {
+            "Traslado": [
+              {
+                "Base": 37986.22,
+                "Impuesto": "002",
+                "TipoFactor": "Tasa",
+                "TasaOCuota": "0.160000",
+                "Importe": 6077.8
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "Impuestos": {
+    "Traslados": {
+      "Traslado": [
+        {
+          "Base": 37986.22,
+          "Impuesto": "002",
+          "TipoFactor": "Tasa",
+          "TasaOCuota": "0.160000",
+          "Importe": 6077.8
+        }
+      ]
+    },
+    "TotalImpuestosTrasladados": 6077.8
+  }
+}

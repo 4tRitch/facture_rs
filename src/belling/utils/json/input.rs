@@ -1,7 +1,9 @@
-use crate::belling::utils::{core::{comprobante::Comprobante, error::BillingError}, json::{entity::EntityWrapper, json_raw::JsonRaw}};
+use crate::belling::utils::{core::{comprobante::Comprobante, enums::BillingType, error::BillingError}, json::{entity::EntityWrapper, json_raw::JsonRaw}};
+
 
 #[derive(serde::Deserialize, serde::Serialize)]
 pub struct JsonInput {
+  pub bill_type: BillingType,
   json: JsonRaw,
   bearer: String
 }
@@ -9,6 +11,7 @@ pub struct JsonInput {
 impl JsonInput {
   pub fn new() -> Self{
     JsonInput{
+      bill_type: BillingType::JSON,
       bearer: String::new(),
       json: JsonRaw::new()
     }
